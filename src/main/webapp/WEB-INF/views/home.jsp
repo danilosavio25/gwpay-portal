@@ -5,7 +5,7 @@
 <body>
 <h2>Portal GWPay</h2>
 <p>Bem vindo, ${usuarioLogado.login}</p>
-<a href="testeBanco">Clique aqui</a> para testar banco
+<a href="consultaTransacao">Clique aqui</a> para testar banco
 <a href="efetuaLogout">Logout</a>
 </body>
 </html>

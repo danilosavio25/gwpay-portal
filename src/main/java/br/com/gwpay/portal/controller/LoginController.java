@@ -1,11 +1,16 @@
 package br.com.gwpay.portal.controller;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import br.com.gwpay.portal.dao.HistoricoTransacaoDao;
 import br.com.gwpay.portal.dao.UsuarioDao;
+import br.com.gwpay.portal.model.HistoricoTransacao;
 import br.com.gwpay.portal.model.Usuario;
 
 @Controller
@@ -17,12 +22,12 @@ public class LoginController {
 	}
 	
 	@RequestMapping("/efetuaLogin")
-	public String efetuaLogin(Usuario usuario, HttpSession session){			
+	public String efetuaLogin(Usuario usuario, HttpSession session) {			
 		
 		UsuarioDao dao = new UsuarioDao();
 		if(dao.existeUsuario(usuario)){
 			session.setAttribute("usuarioLogado", usuario);
-			return "home";
+			return "redirect:home";
 		}else{
 			return "redirect:loginForm";
 		}
@@ -39,18 +44,16 @@ public class LoginController {
 	@RequestMapping("/testeBanco")
 	public String teste(){
 		
-		Usuario usuario = new Usuario();
-		usuario.setLogin("danilo.savio");
+		HistoricoTransacaoDao dao = new HistoricoTransacaoDao();
+		List<HistoricoTransacao> historicos = dao.buscarHistoricosTransacao();
 		
-		UsuarioDao dao = new UsuarioDao();
-		Usuario usuarioRetornado = dao.getUsuario(usuario);
-		
-		System.out.println("login: " + usuarioRetornado.getLogin());
-		System.out.println("Id: " + usuarioRetornado.getId());
-		
-		return "home";
+		return "redirect:home";
 	}
 	
+	@RequestMapping("/home")
+	public String home(){
+		return "home";
+	}
 	
 	
 }
