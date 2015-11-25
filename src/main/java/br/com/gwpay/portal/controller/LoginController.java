@@ -1,6 +1,5 @@
 package br.com.gwpay.portal.controller;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -18,6 +17,7 @@ public class LoginController {
 
 	@RequestMapping("/loginForm")
 	public String loginForm(){
+		System.out.println("loginForm"); 
 		return "login-form";
 	}
 	
@@ -45,7 +45,7 @@ public class LoginController {
 	public String teste(){
 		
 		HistoricoTransacaoDao dao = new HistoricoTransacaoDao();
-		List<HistoricoTransacao> historicos = dao.buscarHistoricosTransacao();
+		List<HistoricoTransacao> historicos = dao.buscarHistoricosTransacao(null);
 		
 		return "redirect:home";
 	}

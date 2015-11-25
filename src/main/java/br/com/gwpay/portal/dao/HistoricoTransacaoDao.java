@@ -17,11 +17,11 @@ public class HistoricoTransacaoDao {
 	
 	public  HistoricoTransacaoDao(){
 		
-	}
+	} 
 	
 	public boolean inserirHistoricoTransacao(HistoricoTransacao transacao){
 		
-		try {
+		try {  
 			
 			ConnectionFactory connectionFactory = new ConnectionFactory();
 			Connection conn = connectionFactory.getConnection();

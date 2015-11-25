@@ -2,7 +2,6 @@ package br.com.gwpay.portal.controller;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -15,7 +14,7 @@ import br.com.gwpay.portal.util.FiltroBusca;
 
 @Controller
 public class ConsultaController {
-
+  
 	@RequestMapping("/consultaTransacao")
 	public ModelAndView consultaTransacao(){
 		
