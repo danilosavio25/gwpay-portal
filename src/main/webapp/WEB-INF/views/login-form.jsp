@@ -24,19 +24,19 @@
 	
 	<div class="container-fluid">
                 <div class="row">
-					<div class="col-lg-4">
+					<div class="col-lg-3">
 					</div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
 						
 						 <div id="loginPanel" class="panel panel-default">
                             <div class="panel-body">
 								<img src="<c:url value="/resources/img/gwpay-portal.png" />" class="img-responsive" alt="GWPay Portal"> 
                                  <form action="efetuaLogin" method="post">
 									<div class="form-group">
-										<input id="bUsuario" type="text" class="form-control" placeholder="Usuário" name="login">
+										<input id="bUsuario" type="text" class="form-control" placeholder="Usuário" value="danilo.savio" name="login">
 									</div>
 									<div class="form-group">
-										<input id="bSenha" type="password" class="form-control" placeholder="Senha" name="senha">
+										<input id="bSenha" type="password" class="form-control" placeholder="Senha" value="danilo.savio00" name="senha">
 									</div>
 									<div class="form-group">
 										<button  id="bEntrar" type="submit" class="btn btn-primary btn-block">
@@ -59,5 +59,8 @@
 	
 	 <!-- Bootstrap Core JavaScript -->
 	 <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
+	 
+	  <!-- Main Custom JavaScript -->
+	<script src="<c:url value="/resources/js/main.js" />"></script>
 </body>
 </html>

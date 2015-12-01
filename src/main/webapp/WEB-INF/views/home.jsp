@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -72,7 +74,7 @@
                         <a href="transacoes"><i class="fa fa-fw fa-money"></i> Transações</a>
                     </li>
 					<li>
-                        <a href="dados-contabeis"><i class="fa fa-fw fa-calculator"></i> Dados Contábeis</a>
+                        <a href="consultaTransacao"><i class="fa fa-fw fa-calculator"></i> Dados Contábeis</a>
                     </li>
                 
                 </ul>
@@ -120,70 +122,39 @@
                                 <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Painel de Transações</h3>
                             </div>
                             <div class="panel-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-hover table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>NSU #</th>
-                                                <th>Data</th>
-                                                <th>Hora</th>
-                                                <th>Valor (R$)</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>3326</td>
-                                                <td>22/10/2015</td>
-                                                <td>15:29</td>
-                                                <td>321,33</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3325</td>
-                                                <td>22/10/2015</td>
-                                                <td>15:20</td>
-                                                <td>234,34</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3324</td>
-                                                <td>22/10/2015</td>
-                                                <td>15:03</td>
-                                                <td>724,17</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3323</td>
-                                                <td>22/10/2015</td>
-                                                <td>15:00</td>
-                                                <td>23,71</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3322</td>
-                                                <td>22/10/2015</td>
-                                                <td>14:49</td>
-                                                <td>8345,23</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3321</td>
-                                                <td>22/10/2015</td>
-                                                <td>14:23</td>
-                                                <td>245,12</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3320</td>
-                                                <td>22/10/2015</td>
-                                                <td>14:15</td>
-                                                <td>5663,54</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3319</td>
-                                                <td>22/10/2015</td>
-                                                <td>14:13</td>
-                                                <td>943,45</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                            
+                            	<c:choose>
+								  <c:when test="${fn:length(historicos) gt 0}">
+								   <div class="table-responsive">
+	                                    <table class="table table-bordered table-hover table-striped">
+	                                        <thead>
+	                                            <tr>
+	                                                <th>NSU #</th>
+	                                                <th>Data</th>
+	                                                <th>Hora</th>
+	                                                <th>Valor (R$)</th>
+	                                            </tr>
+	                                        </thead>
+	                                        <tbody>
+	                                            <c:forEach items="${historicos}" var="historico">
+											        <tr>
+											            <td>${historico.codNSU}</td>
+											            <td><fmt:formatDate value="${historico.dataTransacao}" pattern="dd/MM/yyyy"/></td>
+											            <td><fmt:formatDate value="${historico.dataTransacao}" pattern="hh:mm:ss"/></td>
+											            <td>${historico.valor}</td>
+											        </tr>        
+										        </c:forEach>
+	                                        </tbody>
+	                                    </table>
+	                                </div>	  
+								  </c:when>
+								  <c:otherwise>
+								  	<p>Não há transações disponíveis.</p>
+								  </c:otherwise>
+								</c:choose>
+            					
                                 <div class="text-right">
-                                    <a href="#">Ver todas as transações <i class="fa fa-arrow-circle-right"></i></a>
+                                    <a href="buscaTodasTransacoes">Ver todas as transações <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -213,6 +184,8 @@
     <script src="<c:url value="/resources/js/plugins/morris/morris.min.js" />"></script>
      <script src="<c:url value="/resources/js/plugins/morris/morris-data.js" />"></script>
 
+	 <!-- Main Custom JavaScript -->
+	<script src="<c:url value="/resources/js/main.js" />"></script>
 </body>
 
 </html>

@@ -11,11 +11,11 @@ import org.springframework.web.servlet.ModelAndView;
 import br.com.gwpay.portal.dao.HistoricoTransacaoDao;
 import br.com.gwpay.portal.model.HistoricoTransacao;
 import br.com.gwpay.portal.util.FiltroBusca;
-
+ 
 @Controller
 public class ConsultaController {
-  
-	@RequestMapping("/consultaTransacao")
+   
+	/*@RequestMapping("/consultaTransacao")  
 	public ModelAndView consultaTransacao(){
 		
 		Calendar c = Calendar.getInstance();
@@ -27,16 +27,24 @@ public class ConsultaController {
 		
 		filtro.setDataFim(new Timestamp(Calendar.getInstance().getTimeInMillis()));
 		
+		filtro.setAdquirenteId(0);
+		
+		filtro.setBandeiraId(0);
+		
 		System.out.println(filtro.getDataInicio());
 		System.out.println(filtro.getDataFim());
 		
 		HistoricoTransacaoDao dao = new HistoricoTransacaoDao();
-		List<HistoricoTransacao> historicos = dao.buscarHistoricosTransacao(filtro);
+		//List<HistoricoTransacao> historicos = dao.buscarHistoricosTransacao(filtro);
+		
+		filtro.setNumRegistros(10);
+		
+		List<HistoricoTransacao> historicos = dao.buscarDezPrimeiros(filtro);
 		
 		ModelAndView mv = new ModelAndView("consulta/consulta-transacao");
 		mv.addObject("historicos", historicos);
 		
 		return mv; 
-	}
+	}*/
 	
 }

@@ -21,12 +21,8 @@
     <link href="<c:url value="/resources/font-awesome/css/font-awesome.min.css" />" rel="stylesheet">
 
 </head>
-
-
 <body>
-
     <div id="wrapper">
-
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -127,13 +123,11 @@
                             </div>
 							<div class="form-group">
                                 <label for="selDataInicial">Data Inicial:</label>
-                               	<input id="selDataInicial" type="datetime-local" class="form-control" name="dataInicio">
-                                </select>
+                               	<input id="inputDataInicio" type="datetime-local" class="form-control"  name="dataInicio">
                             </div>
 							<div class="form-group">
                                 <label for="selDataFinal">Data Final:</label>
-                               	<input id="selDataFinal" type="datetime-local" class="form-control" name="dataFim">
-                                </select>
+                               	<input id="inputDataFim" type="datetime-local" class="form-control" name="dataFim">
                             </div>
 							<div class="form-group">
                                	<input id="bBuscar" type="submit" class="btn btn-primary btn-block" value="Buscar">
@@ -153,7 +147,7 @@
                                 <c:choose>
 								  <c:when test="${fn:length(historicos) gt 0}">
 								   <div class="table-responsive">
-	                                    <table class="table table-bordered table-hover table-striped">
+	                                    <table id="tabela-transacoes" class="table table-bordered table-hover table-striped">
 	                                        <thead>
 	                                            <tr>
 												<th>NSU #</th>
@@ -175,9 +169,9 @@
 											            <td>${historico.adquirente}</td>
 											            <td>${historico.bandeiraId}</td>
 											            <td>${historico.produto}</td>
-											            <td>${historico.valor}</td>
 											            <td><fmt:formatDate value="${historico.dataTransacao}" pattern="dd/MM/yyyy"/></td>
 											            <td><fmt:formatDate value="${historico.dataTransacao}" pattern="hh:mm:ss"/></td>
+											           <td>${historico.valor}</td>
 											            <td>${historico.descricaoResposta}</td>
 											        </tr>        
 										        </c:forEach>
@@ -220,37 +214,9 @@
    
 	<script>
 		$(document).ready(function(){
-			$('#tabela-transacoes').DataTable({
-			
-				language:{
-					"sEmptyTable": "Nenhum registro encontrado",
-					"sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-					"sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-					"sInfoFiltered": "(Filtrados de _MAX_ registros)",
-					"sInfoPostFix": "",
-					"sInfoThousands": ".",
-					"sLengthMenu": "_MENU_ resultados por página",
-					"sLoadingRecords": "Carregando...",
-					"sProcessing": "Processando...",
-					"sZeroRecords": "Nenhum registro encontrado",
-					"sSearch": "Pesquisar",
-					"oPaginate": {
-						"sNext": "Próximo",
-						"sPrevious": "Anterior",
-						"sFirst": "Primeiro",
-						"sLast": "Último"
-					},
-					"oAria": {
-						"sSortAscending": ": Ordenar colunas de forma ascendente",
-						"sSortDescending": ": Ordenar colunas de forma descendente"
-					}
-				}
-			});
+			geraDataTable("tabela-transacoes");
+			guardaForm();
 		});
-		
-		{
-    
-}
 	</script>
 
 </body>
