@@ -31,19 +31,22 @@ public class HistoricoTransacaoDao {
 			System.out.println("after getconn");
 			PreparedStatement pstmt;
 			
-			String sql = "SELECT * FROM HISTORICO_TRANSACAO "
-					+ "WHERE DAT_TRS BETWEEN ? AND ? "
-					+ "AND CLIENTE_ID = ? ";
+			String sql = " SELECT H.NSU_ID, H.TERMINAL_ID, H.NUM_CARTAO,  H.BANDEIRA_ID, H.VALOR , H.DAT_TRS, H.DSC_RESPOSTA, B.NOME AS BANDEIRA FROM HISTORICO_TRANSACAO H JOIN BANDEIRA B ON H.BANDEIRA_ID = B.ID "
+					+ "AND H.DAT_TRS BETWEEN ? AND ? "
+					+ "AND H.CLIENTE_ID = ? ";
 					if(!filtro.getBandeiraId().equals("0")){
-						sql += "AND BANDEIRA_ID = ? ";
+						sql += "AND H.BANDEIRA_ID = ? ";
 					}
 					if(!filtro.getAdquirenteId().equals("0")){
-						sql += "AND ADQ_ID = ? ";
+						sql += "AND H.ADQ_ID = ? ";
 					}
-					
+					sql += " ORDER BY H.DAT_TRS DESC ";
+					 
 			
 			pstmt = conn.prepareStatement(sql);
 					
+			System.out.println(convertToTimeStamp(filtro.getDataInicio()));
+			System.out.println(convertToTimeStamp(filtro.getDataFim()));
 					
 			pstmt.setTimestamp(1, convertToTimeStamp(filtro.getDataInicio()));
 			pstmt.setTimestamp(2,  convertToTimeStamp(filtro.getDataFim()));
@@ -53,13 +56,13 @@ public class HistoricoTransacaoDao {
 				pstmt.setInt(4, Integer.parseInt(filtro.getBandeiraId()));
 
 			}
-			if(!filtro.getAdquirenteId().equals("0") && filtro.getBandeiraId().equals("0")){
+			if(!filtro.getAdquirenteId().equals("0") && !filtro.getBandeiraId().equals("0")){
 				pstmt.setInt(5, Integer.parseInt(filtro.getAdquirenteId()));
-			}else if(!filtro.getAdquirenteId().equals("0") && !filtro.getBandeiraId().equals("0")){
+			}else if(!filtro.getAdquirenteId().equals("0") && filtro.getBandeiraId().equals("0")){
 				pstmt.setInt(4, Integer.parseInt(filtro.getAdquirenteId()));
 			}
 			
-			
+			 
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -71,6 +74,7 @@ public class HistoricoTransacaoDao {
 				historico.setValor(rs.getDouble("valor"));
 				historico.setDataTransacao(rs.getTimestamp("dat_trs"));
 				historico.setDescricaoResposta(rs.getString("dsc_resposta"));
+				historico.setBandeira(rs.getString("bandeira"));
 				//historico.setAdquirenteId(rs.getInt("adq_id"));
 				historico.setProduto("Crédito");
 				historico.setAdquirente("GetNet"); 
@@ -98,9 +102,9 @@ public class HistoricoTransacaoDao {
 			System.out.println("after getconn");
 			PreparedStatement pstmt;
 			
-			String sql = "SELECT * FROM HISTORICO_TRANSACAO "
-					+ "WHERE CLIENTE_ID = ? "
-					+ "ORDER BY DAT_TRS DESC LIMIT ?";
+			String sql = " SELECT H.NSU_ID, H.TERMINAL_ID, H.NUM_CARTAO,  H.BANDEIRA_ID, H.VALOR , H.DAT_TRS, H.DSC_RESPOSTA, B.NOME AS BANDEIRA FROM HISTORICO_TRANSACAO H JOIN BANDEIRA B ON H.BANDEIRA_ID = B.ID "
+					+ "AND H.CLIENTE_ID = ? "
+					+ "ORDER BY H.DAT_TRS DESC LIMIT ?";
 					
 			
 			pstmt = conn.prepareStatement(sql);
@@ -121,6 +125,7 @@ public class HistoricoTransacaoDao {
 				historico.setValor(rs.getDouble("valor"));
 				historico.setDataTransacao(rs.getTimestamp("dat_trs"));
 				historico.setDescricaoResposta(rs.getString("dsc_resposta"));
+				historico.setBandeira(rs.getString("bandeira"));
 				//historico.setAdquirenteId(rs.getInt("adq_id"));
 				historico.setProduto("Crédito");
 				historico.setAdquirente("GetNet"); 

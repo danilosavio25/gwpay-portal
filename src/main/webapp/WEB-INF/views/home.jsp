@@ -40,7 +40,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">GWPay Portal</a>
+                <a class="navbar-brand" href="index.html"><img src="<c:url value="/resources/img/gwpay-portal.png" />" class="img-logo-bar" alt="GWPay Portal"> </a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">

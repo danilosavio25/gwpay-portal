@@ -33,7 +33,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">GWPay Portal</a>
+                <a class="navbar-brand" href="index.html"><img src="<c:url value="/resources/img/gwpay-portal.png" />" class="img-logo-bar" alt="GWPay Portal"> </a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
@@ -100,17 +100,18 @@
                                 <label for="selAdquirente">Adquirente:</label>
                                 <select id="selAdquirente" class="form-control" name="adquirenteId">
                                     <option value="0">Todos</option>
-                                    <option value="1">GetNet</option>
-                                    <option value="2">Rede</option>
-                                    <option value="3">Cielo</option>
+                                    <c:forEach items="${adquirentes}" var="adquirente">
+										<option value="${adquirente.id}">${adquirente.nome}</option>	        
+									</c:forEach>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="selBandeira">Bandeira:</label>
                                 <select id="selBandeira" class="form-control" name="bandeiraId">
 									<option value="0">Todas</option>
-                                    <option value="1">VISA</option>
-                                    <option value="2">MASTER</option>
+									<c:forEach items="${bandeiras}" var="bandeira">
+                                    	<option value="${bandeira.id}">${bandeira.nome}</option>
+									</c:forEach>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -150,6 +151,7 @@
 	                                    <table id="tabela-transacoes" class="table table-bordered table-hover table-striped">
 	                                        <thead>
 	                                            <tr>
+	                                            <th></th>
 												<th>NSU #</th>
 												<th>Número Cartão</th>
 												<th>Adquirente</th>
@@ -164,13 +166,14 @@
 	                                        <tbody>
 	                                            <c:forEach items="${historicos}" var="historico">
 											        <tr>
-											          <td>${historico.codNSU}</td>
+											          <td><a href="#" class="btn btn-danger"><i class="fa fa-search-plus"></i></a></td>
+											            <td>${historico.codNSU}</td>
 											            <td>${historico.numCartao}</td>
 											            <td>${historico.adquirente}</td>
-											            <td>${historico.bandeiraId}</td>
+											            <td>${historico.bandeira}</td>
 											            <td>${historico.produto}</td>
 											            <td><fmt:formatDate value="${historico.dataTransacao}" pattern="dd/MM/yyyy"/></td>
-											            <td><fmt:formatDate value="${historico.dataTransacao}" pattern="hh:mm:ss"/></td>
+											            <td><fmt:formatDate value="${historico.dataTransacao}" pattern="HH:mm:ss"/></td>
 											           <td>${historico.valor}</td>
 											            <td>${historico.descricaoResposta}</td>
 											        </tr>        

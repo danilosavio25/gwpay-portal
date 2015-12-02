@@ -1,9 +1,9 @@
 package br.com.gwpay.portal.model;
-
+ 
 import java.util.Date;
 
 public class HistoricoTransacao {
-	
+	 
 	private String codCliente; //terminalId
 	private String codRastreio; //trackId
 	private double valor;
@@ -41,6 +41,7 @@ public class HistoricoTransacao {
 	// Campos somente do objeto, não estão no banco
 	private String adquirente;
 	private String produto;
+	private String bandeira;
 	
 	public String getCodCliente() {
 		return codCliente;
@@ -206,17 +207,17 @@ public class HistoricoTransacao {
 	}
 	public double getValorCancelado() {
 		return valorCancelado;
-	}
+	} 
 	public void setValorCancelado(double valorCancelado) {
 		this.valorCancelado = valorCancelado;
-	}
+	} 
 	public int getTipoTransacaoId() {
 		return tipoTransacaoId;
-	}
+	} 
 	public void setTipoTransacaoId(int tipoTransacaoId) {
 		this.tipoTransacaoId = tipoTransacaoId;
 	}
-	public int getClienteId() {
+	public int getClienteId() { 
 		return clienteId;
 	}
 	public void setClienteId(int clienteId) {
@@ -227,7 +228,7 @@ public class HistoricoTransacao {
 	}
 	public void setBandeiraId(int bandeiraId) {
 		this.bandeiraId = bandeiraId;
-	}
+	} 
 	public int getTipoCancelamentoId() {
 		return tipoCancelamentoId;
 	}
@@ -257,5 +258,11 @@ public class HistoricoTransacao {
 	}
 	public void setProduto(String produto) {
 		this.produto = produto;
+	}
+	public String getBandeira() {
+		return bandeira;
+	}
+	public void setBandeira(String bandeira) {
+		this.bandeira = bandeira;
 	}
 }
