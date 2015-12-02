@@ -1,6 +1,5 @@
 package br.com.gwpay.portal.controller;
 
-import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
 
@@ -30,7 +29,13 @@ public class LoginController {
 		
 		UsuarioDao dao = new UsuarioDao();
 		if(dao.existeUsuario(usuario)){
+			
+			int clienteId = dao.buscaClienteId(usuario);
+			String nomeUsuario = dao.buscaDadosUsuario(usuario);
+			usuario.setNome(nomeUsuario);
+			
 			session.setAttribute("usuarioLogado", usuario);
+			session.setAttribute("clienteId", clienteId);
 			return "redirect:home";
 		}else{
 			return "redirect:loginForm";
@@ -55,13 +60,13 @@ public class LoginController {
 	}
 	
 	@RequestMapping("/home")
-	public ModelAndView home(){
+	public ModelAndView home(HttpSession session){
 		
 		Calendar c = Calendar.getInstance();
 		c.set(2015, 10, 1, 00, 00);
 		
 		FiltroBusca filtro = new FiltroBusca();
-		filtro.setClientId("1");
+		filtro.setClientId(session.getAttribute("clienteId").toString());
 		filtro.setNumRegistros("10");
 		
 		System.out.println(filtro.getDataInicio());
@@ -69,7 +74,7 @@ public class LoginController {
 		
 		HistoricoTransacaoDao dao = new HistoricoTransacaoDao();
 		
-		List<HistoricoTransacao> historicos = dao.buscarDezPrimeiros(filtro);
+		List<HistoricoTransacao> historicos = dao.buscarQuantidadeRegistros(filtro);
 		
 		ModelAndView mv = new ModelAndView("home");  
 		mv.addObject("historicos", historicos);

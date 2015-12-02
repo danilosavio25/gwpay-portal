@@ -47,6 +47,46 @@ public class UsuarioDao {
 		
 	}
 	
+	public int buscaClienteId(Usuario usuario){
+		
+		try {
+			 
+			ConnectionFactory connectionFactory = new ConnectionFactory();
+			Connection conn = connectionFactory.getConnection();
+			System.out.println("after getconn");
+			PreparedStatement pstmt;
+			
+			pstmt = conn.prepareStatement("SELECT C.ID AS ID FROM CLIENTE C JOIN USUARIO U ON C.ID = U.CLIENTE_ID AND U.LOGIN = ? AND U.SENHA = ?");
+										
+
+			pstmt.setString(1, usuario.getLogin());
+			pstmt.setString(2, usuario.getSenha());
+
+			ResultSet rs = pstmt.executeQuery();
+			
+			int id = 0;
+			while (rs.next()) {
+				id =  rs.getInt("id");
+			}
+			rs.close();
+
+			pstmt.close();
+			conn.close();
+			
+			return id;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return 0;
+		
+	}
+	
+	
+	
+	
 	public boolean existeUsuario(Usuario usuario) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -86,4 +126,39 @@ public class UsuarioDao {
 		}
 	}
 
+	public String buscaDadosUsuario(Usuario usuario) {
+		try {
+			 
+			ConnectionFactory connectionFactory = new ConnectionFactory();
+			Connection conn = connectionFactory.getConnection();
+			System.out.println("after getconn");
+			PreparedStatement pstmt;
+			
+			pstmt = conn.prepareStatement("SELECT NOME FROM USUARIO  WHERE LOGIN = ? AND SENHA = ?");
+										
+
+			pstmt.setString(1, usuario.getLogin());
+			pstmt.setString(2, usuario.getSenha());
+
+			ResultSet rs = pstmt.executeQuery();
+			
+			String nome = null;
+			while (rs.next()) {
+				nome =  rs.getString("NOME");
+			}
+			rs.close();
+
+			pstmt.close();
+			conn.close();
+			
+			return nome;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+		
+	}
 }

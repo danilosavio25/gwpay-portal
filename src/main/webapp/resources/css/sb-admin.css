@@ -262,3 +262,7 @@ body{
 	background-color: #555555;
 	border-bottom-color: #333333;
 }
+
+input.form-control.input-sm {
+    margin-left: 5px;
+}

@@ -1,10 +1,8 @@
 package br.com.gwpay.portal.controller;
 
-import java.sql.Timestamp;
-import java.util.Calendar;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,40 +18,32 @@ public class TransacaoController {
 	@RequestMapping("/transacoes")
 	public String transacao(){
 		return "transacoes/filtro-transacoes"; 
-	} 
-	
+	}  
+	 
 	@RequestMapping("/buscaTodasTransacoes")
-	public ModelAndView buscaTodasTransacoes(){
+	public ModelAndView buscaTodasTransacoes(HttpSession session){
+	
+		System.out.println("session " + session.getAttribute("clienteId").toString());
 		
-		Calendar c = Calendar.getInstance();
-		c.set(2015, 10, 1, 00, 00);
 		
 		FiltroBusca filtro = new FiltroBusca();
-		filtro.setClientId("1");
-		filtro.setDataInicio("" + new Timestamp(c.getTimeInMillis()));
-		filtro.setDataFim("" + new Timestamp(Calendar.getInstance().getTimeInMillis()));
-		filtro.setAdquirenteId("0");
-		filtro.setBandeiraId("0");
-		
+		filtro.setClientId(session.getAttribute("clienteId").toString());
+		filtro.setNumRegistros("1000");
 		
 		HistoricoTransacaoDao dao = new HistoricoTransacaoDao();
-		List<HistoricoTransacao> historicos = dao.buscarHistoricosTransacao(filtro);
-		 
+		List<HistoricoTransacao> historicos = dao.buscarQuantidadeRegistros(filtro);
+		  
  
-		ModelAndView mv = new ModelAndView("transacoes/transacoes");
+		ModelAndView mv = new ModelAndView("transacoes/filtro-transacoes");
 		mv.addObject("historicos", historicos);
-		
+		  
 		return mv;  
 	}   
-	    
+	     
 	@RequestMapping("/buscaTransacoes")
-	public ModelAndView buscaTransacoes(FiltroBusca filtro){
+	public ModelAndView buscaTransacoes(FiltroBusca filtro, HttpSession session){
  		 
-		filtro.setClientId("1");
-		//filtro.setDataInicio(new Timestamp(c.getTimeInMillis()));
-		//filtro.setDataFim(new Timestamp(Calendar.getInstance().getTimeInMillis()));
-		//filtro.setAdquirenteId(0);
-		//filtro.setBandeiraId(0);
+		filtro.setClientId(session.getAttribute("clienteId").toString());
 		
 		System.out.println("Adq: " + filtro.getAdquirenteId());
 		System.out.println("Band: " + filtro.getBandeiraId());

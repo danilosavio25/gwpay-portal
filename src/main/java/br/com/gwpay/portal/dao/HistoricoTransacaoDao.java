@@ -89,7 +89,7 @@ public class HistoricoTransacaoDao {
 		
 	}
 	
-	public List<HistoricoTransacao> buscarDezPrimeiros(FiltroBusca filtro){
+	public List<HistoricoTransacao> buscarQuantidadeRegistros(FiltroBusca filtro){
 		List<HistoricoTransacao> historicos = new ArrayList<HistoricoTransacao>();;
 		try {
 			
