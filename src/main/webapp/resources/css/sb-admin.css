@@ -277,5 +277,9 @@ input.form-control.input-sm {
   }
 }
 
+.modal-header{
+	background-color: #428bca;
+	color: #fff;
+}
   
 

@@ -123,11 +123,11 @@
                                 </select>
                             </div>
 							<div class="form-group">
-                                <label for="selDataInicial">Data Inicial:</label>
+                                <label for="inputDataInicio">Data Inicial:</label>
                                	<input id="inputDataInicio" type="datetime-local" class="form-control"  name="dataInicio">
                             </div>
 							<div class="form-group">
-                                <label for="selDataFinal">Data Final:</label>
+                                <label for="inputDataFim">Data Final:</label>
                                	<input id="inputDataFim" type="datetime-local" class="form-control" name="dataFim">
                             </div>
 							<div class="form-group">
@@ -166,7 +166,7 @@
 	                                        <tbody>
 	                                            <c:forEach items="${historicos}" var="historico">
 											        <tr>
-											          <td><a href="#" class="btn btn-danger"><i class="fa fa-search-plus"></i></a></td>
+											          <td><a href="#" class="btn btn-danger" data-toggle="modal" data-target="#${historico.codNSU}"><i class="fa fa-search-plus"></i></a></td>
 											            <td>${historico.codNSU}</td>
 											            <td>${historico.numCartao}</td>
 											            <td>${historico.adquirente}</td>
@@ -176,7 +176,58 @@
 											            <td><fmt:formatDate value="${historico.dataTransacao}" pattern="HH:mm:ss"/></td>
 											           <td>${historico.valor}</td>
 											            <td>${historico.descricaoResposta}</td>
-											        </tr>        
+											        </tr>
+											        <!-- Modal -->
+													<div id="${historico.codNSU}" class="modal fade" role="dialog">
+													  <div class="modal-dialog">
+													
+													    <!-- Modal content-->
+													    <div class="modal-content">
+													      <div class="modal-header">
+													        <button type="button" class="close" data-dismiss="modal">&times;</button>
+													        <h4 class="modal-title">Detalhe da transação</h4>
+													      </div>
+													      <div class="modal-body">
+													        	<div class="form-group">
+									                                <label for="nsu_modal">NSU:</label>
+									                               	<input id="nsu_modal" type="text" class="form-control"  name="nsu_modal" value="${historico.codNSU}" readonly >
+									                            </div>
+									                            <div class="form-group">
+									                                <label for="status_modal">Status:</label>
+									                               	<input id="status_modal" type="text" class="form-control"  name="status_modal" value="${historico.descricaoResposta}" readonly >
+									                            </div>
+									                            <div class="form-group">
+									                                <label for="valor_modal">Valor(R$):</label>
+									                               	<input id="valor_modal" type="text" class="form-control"  name="valor_modal" value="${historico.valor}" readonly >
+									                            </div>
+									                            <div class="form-group">
+									                                <label for="data_hora_modal">Data/Hora:</label>
+									                               	<input id="data_hora_modal" type="text" class="form-control"  name="data_hora_modal" value="<fmt:formatDate value="${historico.dataTransacao}" pattern="dd/MM/yyyy HH:mm:ss"/>" readonly >
+									                            </div>
+									                            <div class="form-group">
+									                                <label for="cartao_modal">Cartão:</label>
+									                               	<input id="cartao_modal" type="text" class="form-control"  name="cartao_modal" value="${historico.numCartao}" readonly >
+									                            </div>
+									                            <div class="form-group">
+									                                <label for="bandeira_modal">Bandeira:</label>
+									                               	<input id="bandeira_modal" type="text" class="form-control"  name="bandeira_modal" value="${historico.bandeira}" readonly >
+									                            </div> 
+									                            <div class="form-group">
+									                                <label for="adquirente_modal">Adquirente:</label>
+									                               	<input id="adquirente_modal" type="text" class="form-control"  name="adquirente_modal" value="${historico.adquirente}" readonly >
+									                            </div>
+									                            <div class="form-group">
+									                                <label for="produto_modal">Produto:</label>
+									                               	<input id="produto_modal" type="text" class="form-control"  name="produto_modal" value="${historico.produto}" readonly >
+									                            </div>
+													      </div>
+													      <div class="modal-footer">
+													        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+													      </div>
+													    </div>
+													
+													  </div>
+													</div>        
 										        </c:forEach>
 	                                        </tbody>
 	                                    </table>

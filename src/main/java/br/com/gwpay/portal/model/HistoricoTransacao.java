@@ -201,7 +201,7 @@ public class HistoricoTransacao {
 	}
 	public String getDescricaoErroWS() {
 		return descricaoErroWS;
-	}
+	} 
 	public void setDescricaoErroWS(String descricaoErroWS) {
 		this.descricaoErroWS = descricaoErroWS;
 	}
@@ -210,15 +210,15 @@ public class HistoricoTransacao {
 	} 
 	public void setValorCancelado(double valorCancelado) {
 		this.valorCancelado = valorCancelado;
-	} 
+	}  
 	public int getTipoTransacaoId() {
 		return tipoTransacaoId;
 	} 
 	public void setTipoTransacaoId(int tipoTransacaoId) {
 		this.tipoTransacaoId = tipoTransacaoId;
 	}
-	public int getClienteId() { 
-		return clienteId;
+	public int getClienteId() {   
+		return clienteId; 
 	}
 	public void setClienteId(int clienteId) {
 		this.clienteId = clienteId;
